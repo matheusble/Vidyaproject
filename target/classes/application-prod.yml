@@ -1,0 +1,18 @@
+# Perfil prod: usa PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/pedidosdb
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:minha-chave-secreta-jwt-muito-longa-pelo-menos-32-caracteres-para-hs256}
+  scheduler:
+    fechamento-pedidos-cron: "0 0 0 * * ?"
+    estoque-baixo-interval-ms: 600000

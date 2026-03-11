@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: demo-pedidos
+
+  datasource:
+    url: jdbc:h2:mem:pedidosdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+server:
+  port: 8080
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+# Schedulers (customizável por perfil)
+app:
+  jwt:
+    secret: "minha-chave-secreta-jwt-muito-longa-pelo-menos-32-caracteres-para-hs256"
+    expiration-ms: 86400000  # 24 horas
+  auth:
+    demo-username: admin
+    demo-password: senha123
+  scheduler:
+    fechamento-pedidos-cron: "0 0 0 * * ?"
+    pedidos-antigos-dias: 30
+    estoque-baixo-interval-ms: 300000
+    estoque-baixo-limite: 5
+  integration:
+    viacep:
+      base-url: https://viacep.com.br/ws
+      timeout-seconds: 5
